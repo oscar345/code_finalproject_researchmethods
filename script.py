@@ -13,11 +13,9 @@ def open_file(file_name):
 def privacy_tweet(tweet):
     privacy_words = ["privacy", "privéleven", "privégegevens",
                      "persoonlijkelevenssfeer", "veiliginternet",
-                     "encryptie", "privacyschending", "rechtopprivacy",
-                     "privacyvangebruikers", "onlineprivacy",
-                     "onlineveiligheid", "gepersonaliseerdeadvertenties",
-                     "privacyissues", "privacyproblemen", "privacybewust",
-                     "privacygevaar", "privacyvoorwaarden"]
+                     "encryptie", "persoonlijkevrijheid", "privésfeer",
+                     "privacyvangebruikers", "onlineveiligheid",
+                     "gepersonaliseerdeadvertenties", "persoonsgegevens"]
     for word in privacy_words:
         if word in tweet:
             return True
@@ -61,10 +59,10 @@ def main(argument):
     except IndexError:
         json_data = json.dumps(count_tweets(sys.stdin))
 
-    name_file = f"output_privacy_data_{datetime.datetime.now()}.json"
+    name_file = "output_privacy_data_{0}.json".format(datetime.datetime.now())
     name_file = name_file.replace(" ", "_")
 
-    print(f"The file name is '{name_file}'.")
+    print("The file name is '{0}'.".format(name_file))
 
     with open(name_file, "w") as output:
         output.write(json_data)
