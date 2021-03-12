@@ -2,6 +2,7 @@ import sys
 import re
 from collections import defaultdict
 import json
+import datetime
 
 
 def open_file(file_name):
@@ -60,8 +61,12 @@ def main(argument):
     except IndexError:
         json_data = json.dumps(count_tweets(sys.stdin))
 
-    
-    with open("output_privacy_data", "w") as output:
+    name_file = f"output_privacy_data_{datetime.datetime.now()}.json"
+    name_file = name_file.replace(" ", "_")
+
+    print(f"The file name is '{name_file}'.")
+
+    with open(name_file, "w") as output:
         output.write(json_data)
 
 
