@@ -1,3 +1,4 @@
+import sys
 
 
 def privacy_tweet(tweet):
@@ -32,4 +33,4 @@ def main(argument):
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv)
