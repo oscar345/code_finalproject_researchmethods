@@ -1,35 +1,68 @@
 import sys
+import re
+from collections import defaultdict
+import json
+
+
+def open_file(file_name):
+    with open(file_name, "r", encoding='UTF-8') as file:
+        return file.readlines()
 
 
 def privacy_tweet(tweet):
     privacy_words = ["privacy", "privéleven", "privégegevens",
-                     "persoonlijke levenssfeer", "veilig internet",
-                     "encryptie", "privacy schending", "recht op privacy",
-                     "privacy van gebruikers", "online privacy",
-                     "online veiligheid", "gepersonaliseerde advertenties",
-                     "privacy issues", "privacy problemen", "privacy bewust",
-                     "privacygevaar"]
+                     "persoonlijkelevenssfeer", "veiliginternet",
+                     "encryptie", "privacyschending", "rechtopprivacy",
+                     "privacyvangebruikers", "onlineprivacy",
+                     "onlineveiligheid", "gepersonaliseerdeadvertenties",
+                     "privacyissues", "privacyproblemen", "privacybewust",
+                     "privacygevaar", "privacyvoorwaarden"]
     for word in privacy_words:
         if word in tweet:
             return True
     return False
 
 
+def get_date_tweet(tweet):
+    pattern_tweet_date = re.compile("[0-9][0-9][0-9][0-9]-[0-9][0-9]"
+                                    "-[0-9][0-9] [0-9][0-9]:[0-9][0-9]:"
+                                    "[0-9][0-9] [A-Z][A-Z][A-Z] "
+                                    "[A-Z][a-z][a-z]")
+    match_tweet_date = pattern_tweet_date.search(tweet)
+    if match_tweet_date:
+        tweet_date = match_tweet_date.group()
+        pattern_date = re.compile("[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]")
+        match_date = pattern_date.search(tweet_date)
+        date = match_date.group()
+    else:
+        date = "no date"
+    return pattern_tweet_date.sub("", tweet), date
+
+
 def count_tweets(tweets):
-    privacy_tweets = 0
-    other_tweets = 0
-    
+    def privacy_count_dict():
+        return {"privacy_related": 0, "other": 0}
+    data = defaultdict(privacy_count_dict)
+
     for tweet in tweets:
-        privacy_related = privacy_tweet(tweet)
+        tweet_and_date = get_date_tweet(tweet)
+        privacy_related = privacy_tweet(tweet_and_date[0].replace(" ", ""))
         if privacy_related:
-            privacy_tweets += 1
+            data[tweet_and_date[1]]["privacy_related"] += 1
         else:
-            other_tweets += 1
-    return privacy_tweets, other_tweets
+            data[tweet_and_date[1]]["other"] += 1
+    return data
 
 
 def main(argument):
-    print(count_tweets(argument[1]))
+    try:
+        json_data = json.dumps(count_tweets(open_file(argument[1])))
+    except IndexError:
+        json_data = json.dumps(count_tweets(sys.stdin))
+
+    
+    with open("output_privacy_data", "w") as output:
+        output.write(json_data)
 
 
 if __name__ == "__main__":
