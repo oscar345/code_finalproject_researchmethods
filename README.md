@@ -19,7 +19,9 @@ Running the script for the three monhts, will create three JSON files. Use `ls` 
 
 ```
 scp s4372344@karora.let.rug.nl:~/output_privacy_data_2021-03-12_18:36:34.203242.json /the/path/on/your/own/computer
-
 ```
 
 If the name of the file is `output_privacy_data_2021-03-12_18:36:34.203242.json`, it will go to the path on your computer.
+
+## Analyze your data
+To get a graph and the values for the chi square test, you should run the python notebook `visualize_results.ipynb` on the JSON files. The names of these files should be changed in the notebook, if you want to run your own data. 
