@@ -29,6 +29,10 @@ def privacy_tweet(tweet):
                      "encryptie", "persoonlijkevrijheid", "privésfeer",
                      "privacyvangebruikers", "onlineveiligheid",
                      "gepersonaliseerdeadvertenties", "persoonsgegevens"]
+    # Some words are stuck together like "gepersonaliseerdeadvertenties"
+    # which would be "gepersonaliseerde advertenties". This is done
+    # because of `in` that can be used in conditions and can now be used
+    # more easily.
     for word in privacy_words:
         if word in tweet:
             return True
