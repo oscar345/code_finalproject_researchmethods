@@ -6,3 +6,20 @@ To obtain the data used in the paper, you need to have an account for Karora of 
 ```
 scp /the/path/to/the/script/on/your/computer/script.py s1234567@karora.let.rug.nl:~/
 ```
+
+The file will be in your root folder on your karora account. From there you will need to run the script on the tweets. These tweets should contain the text of the tweet and the date: 
+
+```
+zless /net/corpora/twitter2/Tweets/2021/01/*.out.gz | /net/corpora/twitter2/tools/tweet2tab text date | python3 script.py
+```
+
+The first part will give you the tweets for the first month of 2021, the second part will get the text and data of that tweet and the third part is the script. Do this for every month. 
+
+Running the script for the three monhts, will create three JSON files. Use `ls` to get the names of the files and download them back to your computer. 
+
+```
+scp s4372344@karora.let.rug.nl:~/output_privacy_data_2021-03-12_18:36:34.203242.json /the/path/on/your/own/computer
+
+```
+
+If the name of the file is `output_privacy_data_2021-03-12_18:36:34.203242.json`, it will go to the path on your computer.
