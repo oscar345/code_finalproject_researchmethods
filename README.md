@@ -1,5 +1,8 @@
 # code_finalproject_researchmethods
 
+## Using the code 
+I would not clone the repository, because it will use a lot of space. I wanted to create a virtual environment, so you would always use the right versions of the packages I used, but I could not get this to work. That environment is around 600mb, so I would download the code.
+
 ## Getting your data
 To obtain the data used in the paper, you need to have an account for Karora of the University of Groningen. There you can run the `script.py` file. Before you are able to run that program you have to upload the script. Open the terminal and log in on Karora. On Karora you need to run the following command to upload the script.
 
